@@ -1,14 +1,13 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'jn.willfrydev.xalmas'
-version = 'v1.0.0'
+version = 'v1.0.1'
 
 repositories {
-
     mavenCentral()
-    
     maven { url = "https://repo.papermc.io/repository/maven-public/" }
     maven { url = "https://repo.extendedclip.com/content/repositories/placeholderapi/" }
 }
@@ -16,9 +15,7 @@ repositories {
 dependencies {
 
     compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
-
     compileOnly "me.clip:placeholderapi:2.11.6"
-
     implementation "net.kyori:adventure-text-minimessage:4.14.0"
 
     testImplementation platform('org.junit:junit-bom:5.10.0')
@@ -28,4 +25,12 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
