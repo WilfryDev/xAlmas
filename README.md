@@ -1,95 +1,163 @@
-# ☀️ DistantSolar
+<h1 align="center">  ⚡ xAlmas - Premium PvP Soul Economy ⚡</h1>
 
-Un plugin avanzado y altamente optimizado, desarrollado en **Kotlin**, diseñado para servidores de Minecraft (1.19.4+). DistantSolar te permite administrar el `view-distance` y `simulation-distance` de forma individual por cada mundo para mejorar drásticamente el rendimiento de tu servidor y erradicar el lag.
+<p align="center">
+  <b>The ultimate, highly customizable PvP economy plugin for your Minecraft server.</b><br>
+</p>
 
-## ✨ Características Principales
-* **Gestión Independiente:** Configura distancias de renderizado y simulación personalizadas para cada mundo (Overworld, Nether, The End, etc.).
-* **Cero Lag:** Optimizado nativamente para la API de PaperMC.
-* **Colores Hex y RGB:** Soporte total para códigos de color modernos (`&#FFAA00` o `#FFAA00`) en todos los mensajes.
-* **Personalización Total:** Edita cada mensaje, prefijo y permiso desde la configuración. (Puedes desactivar el prefijo simplemente poniendo `prefix: false`).
-* **Sistema de Permisos Dinámico:** Asigna permisos personalizados a cada comando o usa `default` para que cualquier jugador pueda usarlo sin necesidad de OP.
-* **API para Desarrolladores:** Permite a otros plugins obtener y modificar las distancias de los mundos en tiempo real.
-* **Métricas Integradas:** Soporte oficial de [bStats](https://bstats.org/plugin/bukkit/DistantSolar/29907) para monitorear el alcance del plugin.
+![banner](https://cdn.modrinth.com/data/cached_images/41574217c9227b618e5e0ca2683bd86cf85cfa4e.jpeg)
+---
 
-## 📜 Comandos y Permisos
+## 📖 Overview
 
-| Comando | Descripción | Permiso por Defecto |
+**xAlmas** is a premium Minecraft plugin designed to reward players for their PvP skills. Every time a player gets a kill, they can collect the victim's "soul" as a physical, highly customizable item. It features a robust anti-farming system, modern HEX color support, and a dedicated Developer API. 
+
+Whether you want to use standard dyes or custom Base64 player heads, **xAlmas** gives you complete control over your server's kill-reward economy!
+
+## ✨ Key Features
+
+* 💀 **Custom Soul Items:** Create infinite types of currencies! Support for standard materials, custom lore, enchantments, hidden flags, and **Base64 Custom Heads**.
+* 🛡️ **Advanced Anti-Farming System:** Prevent abuse with built-in IP-matching blocks and configurable per-player cooldowns.
+* 🎨 **Modern Formatting:** Full support for **MiniMessage** and **HEX Colors** (`&#HEX` or `<#HEX>`). Make your items and chat messages look stunning.
+* 🎲 **Dynamic Drops:** Choose whether souls go directly into the killer's `INVENTORY` or `DROP` on the ground. You can even set the dropped item to be `random` from your configured list!
+* 🌍 **World Whitelist/Blacklist:** Disable soul drops in specific worlds (e.g., spawn or end).
+* 📊 **PlaceholderAPI Support:** Display player soul stats on scoreboards or menus using `%xa_almas%`.
+* 🔊 **Custom Sounds:** Play specific sounds (with adjustable pitch and volume) when a player collects a soul.
+* ⚙️ **Developer API:** Includes a powerful API with custom events so other plugins can interact with the economy.
+
+---
+
+## 💻 Commands & Permissions
+
+All commands are manageable under a single, easy-to-use base command with full Tab-Completer support.
+
+| Command | Description | Permission |
 | :--- | :--- | :--- |
-| `/dsolar help` | Muestra el menú de ayuda interactivo. | `default` (Todos) |
-| `/dsolar view <mundo>` | Muestra el View y Simulation distance actual de un mundo. | `distantsolar.admin` |
-| `/dsolar reload` | Recarga la configuración y aplica los cambios al instante. | `distantsolar.admin` |
+| `/xa help` | Shows the custom help menu. | `xalmas.admin` |
+| `/xa give <currency> <amount>` | Gives a specific amount of souls to a player. | `xalmas.admin` |
+| `/xa reload` | Reloads `config.yml`, `almas.yml`, and data safely. | `xalmas.admin` |
 
-*(Nota: Todos los permisos son 100% editables en el `config.yml`)*
+---
 
-## ⚙️ Configuración (`config.yml`)
-Todos los archivos se generan limpiamente dentro de la carpeta `plugins/DistantSolar/data/`. Si deseas que un mundo use la distancia por defecto del servidor (server.properties), simplemente establece su valor en `-1`.
+## 🔌 PlaceholderAPI
+
+Make sure you have [PlaceholderAPI](https://modrinth.com/plugin/placeholderapi) installed to use this feature!
+
+* `%xa_almas%` — Returns the total amount of souls the player has collected.
+
+---
+
+## 🛠️ Configuration Snapshot
+
+Setting up your items in `almas.yml` is incredibly easy. Here is an example of a premium Base64 head setup:
 
 ```yaml
-#       ___ _     _              _   __       _
-#     /   (_)___| |_ __ _ _ __ | |_/ _\ ___ | | __ _ _ __
-#    / /\ / / __| __/ _` | '_ \| __\ \ / _ \| |/ _` | '__|
-#   / /_//| \__ \ || (_| | | | | |__\ \ (_) | | (_| | |
-#  /___,' |_|___/\__\__,_|_| |_|\__\__/\___/|_|\__,_|_|
-#                 Powered by xPlugins.es
-
-# Configura la distancia de visión y simulacion por cada mundo.
-# Si pones -1, el plugin ignorará ese valor.
-worlds:
-  world:
-    view-distance: 8
-    simulation-distance: 6
-  world_nether:
-    view-distance: 6
-    simulation-distance: 5
-  world_the_end:
-    view-distance: 10
-    simulation-distance: 8
-
-# Permisos de los comandos. Si pones "default", cualquier jugador puede usarlo sin op.
-permissions:
-  help: "default"
-  reload: "distantsolar.admin"
-  view: "distantsolar.admin"
-
-# Mensajes del plugin. Soporta código de colores & y Hex (Ej: &#FFAA00 o #FFAA00)
-# Si no quieres usar prefijo, simplemente pon: prefix: false
-messages:
-  prefix: "&#FFAA00[&#FFFF55DistantSolar&#FFAA00] "
-  no-permission: "&cNo tienes permisos para realizar esta acción."
-  reload-success: "&a¡Configuración recargada exitosamente!"
-  unknown-command: "&cComando desconocido. Usa &e/dsolar help"
-  view-usage: "&cUso correcto: &e/dsolar view <mundo>"
-  world-not-found: "&cEl mundo &e%world% &cno existe o no está cargado."
-  view-info: "&fEl mundo &#FFFF55%world% &ftiene View: &#FFAA00%view% &fy Sim: &#FFAA00%sim%"
-  help:
-    - "&8&m----------------------------------------"
-    - ""
-    - "            %prefix% &7v1.0.0"
-    - " &e/dsolar reload &8- &fRecarga la configuración."
-    - " &e/dsolar view <mundo> &8- &fMira la distancia de un mundo."
-    - " &e/dsolar help &8- &fMuestra este menú."
-    - ""
-    - "&8&m----------------------------------------"
-
-version: 1.0.0
-# ¿Quieres ver la estadísticas del plugin?
-# Ingresa a bStats (Debe estar activado en el Servidor para que funcione.
-# Link: https://bstats.org/plugin/bukkit/DistantSolar/29907
+items:
+  alma_premium:
+    material: "PLAYER_HEAD"
+    base64: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGRjODgwNTNjMWE4NTNmNzE2NmM5ZTkzYmIzYzUxN2YwODE5NTQ0NzM5ZGJlYWJkNDhhODU5Y2VkNDIwYjcwYiJ9fX0="
+    name: "&#FACBCB☠ Premium Soul &#FACBCB&lF&#EED1D0&lA&#E2D8D5&lN&#D5DED9&lI&#C9E4DE&lA &#FACBCB♫"
+    lore:
+      - ""
+      - "&8 ℹ Information  "
+      - ""
+      - "&f Exchange this rare coin for  "
+      - "&f VIP rewards at spawn.  "
+      - ""
+      - "&#FACBCB ▸ Special Edition!   "
+      - ""
+    enchantments:
+      - "DURABILITY:3"
+    flags:
+      - "HIDE_ENCHANTS"
 ```
 
-## 👨‍💻 API para Desarrolladores (Developers)
-DistantSolar expone una API sencilla para que otros plugins puedan interactuar con las distancias de los mundos.
+---
 
-- Ejemplo de uso (Java/Kotlin):
+## 🚀 For Developers (API)
 
-* Kotlin
-```import es.xplugins.distantsolar.api.DistantSolarAPI
+**xAlmas** is built with extensibility in mind. You can use our API via JitPack to hook into the plugin, manipulate soul balances, and listen to custom events.
 
-// Obtener la distancia de visión de un mundo
-int view = DistantSolarAPI.getViewDistance("world_nether");
+### 1. Dependency Installation
+First, add the JitPack repository and the xAlmas dependency to your project. *(Make sure to replace `VERSION` with the latest release, e.g., `v1.0.0`)*.
 
-// Cambiar la distancia de simulación en tiempo real
-boolean success = DistantSolarAPI.setSimulationDistance("world_the_end", 8);
+**Gradle (Kotlin DSL)**
+```kotlin
+repositories {
+    mavenCentral()
+    maven("[https://jitpack.io](https://jitpack.io)")
+}
+
+dependencies {
+    compileOnly("com.github.WilfryDev:xAlmas:VERSION") 
+}
 ```
-##💡 Créditos
-Desarrollado con pasión por xPlugins
+
+**Gradle (Groovy)**
+```gradle
+repositories {
+    mavenCentral()
+    maven { url '[https://jitpack.io](https://jitpack.io)' }
+}
+
+dependencies {
+    compileOnly 'com.github.WilfryDev:xAlmas:VERSION'
+}
+```
+
+**Maven**
+```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>[https://jitpack.io](https://jitpack.io)</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>com.github.WilfryDev</groupId>
+        <artifactId>xAlmas</artifactId>
+        <version>1.0.0</version>
+        <scope>provided</scope>
+    </dependency>
+</dependencies>
+```
+
+### 2. Available Events
+
+**`PlayerReceiveSoulEvent`**
+This event is fired right before a player receives a soul item from a PvP kill.
+* `isCancelled()` / `setCancelled(boolean)`: Cancel the event to prevent the drop.
+* `getSoulType()` / `setSoulType(String)`: View or dynamically change the type of soul awarded based on killer's ranks or permissions.
+* `getKiller()` / `getVictim()`: Get the exact players involved in the event.
+
+```java
+@EventHandler
+public void onSoulReceive(PlayerReceiveSoulEvent event) {
+    if (event.getKiller().hasPermission("vip.doublesouls")) {
+        // You can change the soul dropped to a premium one dynamically
+        event.setSoulType("alma_premium");
+    }
+}
+```
+
+### 3. API Methods
+
+You can easily interact with a player's saved data using the `XAlmasAPI` class.
+
+```java
+import jn.willfrydev.xalmas.api.XAlmasAPI;
+
+// Get the total amount of souls a player has
+int totalSouls = XAlmasAPI.getSouls(player.getUniqueId());
+
+// Add souls directly to a player's data file
+XAlmasAPI.addSouls(player.getUniqueId(), 5);
+
+// Remove souls safely (will not drop below 0)
+XAlmasAPI.removeSouls(player.getUniqueId(), 2);
+```
+
+---
+*Optimized for Paper 1.16.5+.*
+> 💗 By xPlugins :=)
